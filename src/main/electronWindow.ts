@@ -12,6 +12,7 @@ export class ElectronWindow {
     private _width: Number = 1400,
     private _height: Number = 1000,
     private _preferences: Object = {},
+    private _printOptions: Object = {},
   ) {}
 
   get width() {
@@ -56,6 +57,20 @@ export class ElectronWindow {
     this._preferences = value
   }
 
+  get printOptions() {
+    if (!this._printOptions) {
+      throw new Error('There is no printOptions.')
+    }
+    return this._printOptions
+  }
+
+  set printOptions(value) {
+    if (!value) {
+      throw new Error('There is no printOptions.')
+    }
+    this._printOptions = value
+  }
+
   public setWindow(BrowserWindow: any) {
     this.window = new BrowserWindow({
       width: this._width,
@@ -76,5 +91,14 @@ export class ElectronWindow {
 
   public load(url: String) {
     this.window.loadURL(url)
+  }
+
+  public print() {
+    this.window.webContents.on('did-finish-load', () => {
+      this.window.webContents.print(this._printOptions, (success: Boolean, errorType: String) => {
+        console.log(success)
+        if (!success) console.log(errorType)
+      })
+    })
   }
 }

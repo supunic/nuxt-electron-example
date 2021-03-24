@@ -38,6 +38,10 @@ const createWindow = () => {
   }
 
   electronWindow.load(sourceUrl)
+  electronWindow.printOptions = {
+    silent: true
+  }
+  electronWindow.print()
 }
 
 const run = () => {
