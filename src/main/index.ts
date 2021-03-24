@@ -13,7 +13,7 @@ envConfig({ path: path.join(__dirname, `../../src/.env`) })
 
 // @ts-ignore
 nuxtConfig.rootDir = path.resolve('src/renderer')
-// @ts-ignore
+
 const isDev = nuxtConfig.dev
 
 let sourceUrl: String = ''
